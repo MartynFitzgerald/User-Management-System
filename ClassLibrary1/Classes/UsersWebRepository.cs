@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 
-namespace User_Management_System
+namespace User_Management_System_Classes
 {
     /*
         This class contains all the methods for performing actions to the RESTful API that stores the information.

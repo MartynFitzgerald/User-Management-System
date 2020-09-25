@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace User_Management_System
+namespace User_Management_System_Classes
 {
     public class Address
     {
