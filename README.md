@@ -19,13 +19,13 @@ The focus behind this console application is to create a package that will allow
 
 ## Installation
 
-1. Un-zip Computershare-Coding-Challenge.zip file.
+1. Un-zip User-Management-System.zip file.
 2. Open Command Prompt.
 3. Move into the folder of the repository.
 ```bash
-cd Computershare-Coding-Challenge
+cd User-Management-System
 ```
 4. Start the visual studio environment.
 ```bash
-start Computershare-Coding-Challenge.sln
+start User-Management-System.sln
 ```
