@@ -7,7 +7,7 @@ The focus behind this console application is to create a package that will allow
 
 ## Software Used    
 
-* Visual Studio Community 2019 (16.7.4)
+* Visual Studio Community 2019 (16.7.5)
 
 ## Resources Used
 

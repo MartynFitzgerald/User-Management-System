@@ -1,6 +1,6 @@
 ﻿using System;
-using User_Management_System_Classes;
 using System.Collections.Generic;
+using User_Management_System_Classes;
 
 namespace User_Management_System
 {
@@ -34,7 +34,7 @@ namespace User_Management_System
             }
             else
             {
-                usersRepository = new UsersLocalRespoitory();
+                usersRepository = new UsersLocalRespoitory("../data/", "Users", ".json");
             }
 
             List<User> users = usersRepository.GetAll();
@@ -59,16 +59,17 @@ namespace User_Management_System
                         ViewUsersUI(users);
                         break;
                     case "2":
-                        var userAdd = AddUserUI();
+                        var userAdd = AddUserUI(users);
                         usersRepository.Add(userAdd);
                         users.Add(userAdd);
                         break;
                     case "3":
-                        var userModify = ModifyUserUI(users);
+                        var userSelected = SelectUserUI(users);
+                        var userModify = ModifyUserUI(userSelected);
                         usersRepository.Update(userModify);
                         break;
                     case "4":
-                        var userDelete = DeleteUserUI(users);
+                        var userDelete = DeleteUserUI(SelectUserUI(users));
                         usersRepository.Delete(userDelete);
                         users.Remove(userDelete);
                         break;
@@ -110,12 +111,12 @@ namespace User_Management_System
             ReturnToMainMenu();
         }
         //This collects data for a new user to be inserted.
-        private static User AddUserUI()
+        private static User AddUserUI(List<User> users)
         {
             //Requesting all the details for the new user.
             Console.WriteLine("To add a user, please fill out the fields below.");
             User user = new User();
-            user.id = Int32.Parse(RequestInput("Id: "));
+            user.id = users.Count + 1; ;
             user.name = RequestInput("Name: ");
             user.username = RequestInput("Username: ");
             user.email = RequestInput("Email Address: ");
@@ -138,14 +139,8 @@ namespace User_Management_System
             ReturnToMainMenu();
             return user;
         }
-        private static User ModifyUserUI(List<User> users)
+        private static User ModifyUserUI(User user)
         {
-            Console.WriteLine("To delete a user, please enter an the ID of the user in the field below.");
-            int userInput = Int32.Parse(RequestInput("Id: "));
-
-            //Search for a user with the id that equals userInput.
-            User user = users.Find(User => User.id == userInput);
-
             if (user != null)
             {
                 Console.Clear();
@@ -236,18 +231,13 @@ namespace User_Management_System
             }
             else
             {
-                Console.WriteLine($"No user with the ID {userInput} was found.");
+                Console.WriteLine($"No user with the ID was found.");
                 ReturnToMainMenu();
             }
             return user;
         }
-        private static User DeleteUserUI(List<User> users)
+        private static User DeleteUserUI(User user)
         {
-            Console.WriteLine("To delete a user, please enter an the ID of the user in the field below.");
-            int userInput = Int32.Parse(RequestInput("Id: "));
-
-            //Search for a user with the id that equals userInput.
-            User user = users.Find(User => User.id == userInput);
             if (user != null)
             {
                 Console.WriteLine($"The user with the id {user.id} has been removed from the storage.");
@@ -255,9 +245,19 @@ namespace User_Management_System
                 return user;
             }
 
-            Console.WriteLine($"No user with the ID {userInput} was found.");
+            Console.WriteLine($"No user with the ID was found.");
             ReturnToMainMenu();
             return null;
+        }
+        private static User SelectUserUI(List<User> users)
+        {
+            Console.WriteLine("Please enter an the ID of the user in the field below.");
+            int userInput = Int32.Parse(RequestInput("Id: "));
+
+            //Search for a user with the id that equals userInput.
+            User user = users.Find(User => User.id == userInput);
+
+            return user;
         }
     }
 }

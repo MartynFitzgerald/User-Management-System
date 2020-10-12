@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\User-Management-System-Classes.csproj" />
+    <ProjectReference Include="..\User-Management-System-Classes\User-Management-System-Classes.csproj" />
   </ItemGroup>
 
 </Project>
