@@ -54,8 +54,10 @@ namespace User_Management_System_Classes
         {
             //Get current users and add a new user to the list.
             List<User> users = GetAll();
-            //Remove user from the list of users.
-            users.Remove(user);
+            //Search for index of user to remove.
+            int index = users.FindIndex(item => item.id == user.id);
+            //Remove old user from the list of users.
+            users.Remove(users[index]);
             //Update file Stored
             SaveFile(users);
         }

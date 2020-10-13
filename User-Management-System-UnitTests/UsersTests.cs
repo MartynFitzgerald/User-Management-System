@@ -13,34 +13,32 @@ namespace User_Management_System_UnitTests
         public void GetUsersBy_Web_ReturnsListOfUsers()
         {
             //Arrange                
-            var usersRepository = new UsersWebRepository();
+            UsersWebRepository usersRepository = new UsersWebRepository();
 
             //Act
             List<User> result = usersRepository.GetAll();
 
             //Assert
             CollectionAssert.Equals(result, new List<User>());
-
         }
     }
     [TestClass]
     public class UsersLocalRespoitoryTests
     {
         [TestMethod]
-        public void GetUsersBy_Local_ReturnsListOfUsers()
+        public void A_GetUsersBy_Local_ReturnsListOfUsers()
         {
             //Arrange                
-            var usersRepository = new UsersLocalRespoitory("../User-Management-System/data/", "Users", ".json");
+            UsersLocalRespoitory usersRepository = new UsersLocalRespoitory("../User-Management-System/data/", "Users", ".json");
 
             //Act
             List<User> result = usersRepository.GetAll();
 
             //Assert
             CollectionAssert.Equals(result, new List<User>());
-
         }
         [TestMethod]
-        public void AddUserBy_Local_ReturnsUsers()
+        public void B_AddUserBy_Local_ReturnsTrue()
         {
             //Arrange                
             UsersLocalRespoitory usersRepository = new UsersLocalRespoitory("../User-Management-System/data/", "Users", ".json");
@@ -76,17 +74,17 @@ namespace User_Management_System_UnitTests
             Assert.IsTrue(addedUser.id == tempUser.id);
         }
         [TestMethod]
-        public void UpdateUserBy_Local_ReturnsUsers()
+        public void C_UpdateUserBy_Local_ReturnsTrue()
         {
             //Wait till the previous task to be carried out. Should find a better way to wait for last method.
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
             //Arrange                
             UsersLocalRespoitory usersRepository = new UsersLocalRespoitory("../User-Management-System/data/", "Users", ".json");
-            
+
             List<User> users = usersRepository.GetAll();
 
             //Act
-            var index = users.FindIndex(user => user.id == -1);
+            int index = users.FindIndex(user => user.id == -1);
 
             users[index].name = "Test User Updated";
 
@@ -96,6 +94,28 @@ namespace User_Management_System_UnitTests
 
             //Assert
             Assert.IsTrue(users[index].name == "Test User Updated");
+        }
+        [TestMethod]
+        public void D_DeleteUserBy_Local_ReturnsFalse()
+        {
+            //Wait till the previous task to be carried out. Should find a better way to wait for last method.
+            Thread.Sleep(2000);
+            //Arrange                
+            UsersLocalRespoitory usersRepository = new UsersLocalRespoitory("../User-Management-System/data/", "Users", ".json");
+
+            List<User> users = usersRepository.GetAll();
+
+            //Act
+            int index = users.FindIndex(user => user.id == -1);
+
+            User user = users[index];
+
+            usersRepository.Delete(user);
+
+            users = usersRepository.GetAll();
+
+            //Assert
+            Assert.IsFalse(users.Contains(user));
         }
     }
 }
