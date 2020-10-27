@@ -55,6 +55,46 @@ namespace User_Management_System_UnitTests
             //Assert
             Assert.IsTrue(9999999 == tempUser.id);// Change to static number when API returns the users with the added user.
         }
+        [TestMethod]
+        public void C_UpdateUserBy_Web_ReturnsTrue()
+        {
+            //Arrange 
+            UsersWebRepository usersRepository = new UsersWebRepository();
+
+            List<User> users = usersRepository.GetAll();
+
+            //Act
+            int index = users.FindIndex(user => user.id == 1);
+
+            users[index].name = "Test User Updated";
+
+            usersRepository.Update(users[index]);
+
+            users = usersRepository.GetAll();
+
+            //Assert
+            Assert.IsFalse(users[index].name == "Test User Updated");// Change to isFalse when API returns the users with the updated user.
+        }
+        [TestMethod]
+        public void D_DeleteUserBy_Web_ReturnsTrue()
+        {
+            //Arrange 
+            UsersWebRepository usersRepository = new UsersWebRepository();
+
+            List<User> users = usersRepository.GetAll();
+
+            //Act
+            int index = users.FindIndex(user => user.id == 1);
+
+            User user = users[index];
+
+            usersRepository.Delete(user);
+
+            users = usersRepository.GetAll();
+
+            //Assert
+            Assert.IsFalse(users.Contains(user));// Change to isFalse when API returns the users with the updated user.
+        }
     }
     [TestClass]
     public class UsersLocalRespoitoryTests
