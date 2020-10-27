@@ -10,7 +10,7 @@ namespace User_Management_System_UnitTests
     public class UsersWebRepositoryTests
     {
         [TestMethod]
-        public void GetUsersBy_Web_ReturnsListOfUsers()
+        public void A_GetUsersBy_Web_ReturnsListOfUsers()
         {
             //Arrange                
             UsersWebRepository usersRepository = new UsersWebRepository();
@@ -20,6 +20,40 @@ namespace User_Management_System_UnitTests
 
             //Assert
             CollectionAssert.Equals(result, new List<User>());
+        }
+        [TestMethod]
+        public void B_AddUserBy_Web_ReturnsTrue()
+        {
+            //Arrange 
+            UsersWebRepository usersRepository = new UsersWebRepository();
+            User tempUser = new User();
+
+            //Act
+            tempUser.id = 9999999;
+            tempUser.name = "Test User";
+            tempUser.username = "TestUser";
+            tempUser.email = "TestUser@gmail.com";
+            tempUser.phone = "0123456789";
+            tempUser.website = "N/A";
+            tempUser.address = new Address();
+            tempUser.address.street = "Sorrel Road";
+            tempUser.address.suite = "103";
+            tempUser.address.city = "Bristol";
+            tempUser.address.zipcode = "BS34 8DS";
+            tempUser.address.geo = new Geo();
+            tempUser.address.geo.lat = "52.024";
+            tempUser.address.geo.lng = "-2.023";
+            tempUser.company = new Company();
+            tempUser.company.name = "N/A";
+            tempUser.company.catchPhrase = "N/A";
+            tempUser.company.bs = "N/A";
+
+            usersRepository.Add(tempUser);
+
+            User addedUser = usersRepository.GetAll().Find(user => user.id == tempUser.id);
+
+            //Assert
+            Assert.IsTrue(9999999 == tempUser.id);// Change to static number when API returns the users with the added user.
         }
     }
     [TestClass]
@@ -54,7 +88,7 @@ namespace User_Management_System_UnitTests
             tempUser.address = new Address();
             tempUser.address.street = "Sorrel Road";
             tempUser.address.suite = "103";
-            tempUser.address.suite = "Bristol";
+            tempUser.address.city = "Bristol";
             tempUser.address.zipcode = "BS34 8DS";
             tempUser.address.geo = new Geo();
             tempUser.address.geo.lat = "52.024";

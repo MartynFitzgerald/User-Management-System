@@ -125,7 +125,7 @@ namespace User_Management_System
             user.address = new Address();
             user.address.street = RequestInput("Street: ");
             user.address.suite = RequestInput("Suite: ");
-            user.address.suite = RequestInput("City: ");
+            user.address.city = RequestInput("City: ");
             user.address.zipcode = RequestInput("Zipcode (Postcode): ");
             user.address.geo = new Geo();
             user.address.geo.lat = RequestInput("Latitude: ");

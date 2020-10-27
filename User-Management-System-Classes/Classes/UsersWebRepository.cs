@@ -20,7 +20,7 @@ namespace User_Management_System_Classes
         public List<User> GetAll()
         {
             //Request RESTful API for all the users.
-            var rawText = webClient.DownloadString($"{baseUrl}/users");
+            string rawText = webClient.DownloadString($"{baseUrl}/users");
             //Deserialize JSON into List of users.
             var users = JsonSerializer.Deserialize<List<User>>(rawText);
             return users;
@@ -28,16 +28,16 @@ namespace User_Management_System_Classes
         public void Add(User user)
         {
             //Convert the user object into JSON object.
-            var rawText = JsonSerializer.Serialize(user);
-            //Send updated user to RESTful API using PUT HTTP method.
-            webClient.UploadString($"{baseUrl}/users/{user.id}", "PUT", rawText);
+            string rawText = JsonSerializer.Serialize(user);
+            //Send insert a user to RESTful API using POST HTTP method.
+            webClient.UploadString($"{baseUrl}/users", "POST", rawText);
         }
         public void Update(User user)
         {
             //Convert the user object into JSON object.
-            var rawText = JsonSerializer.Serialize(user);
-            //Send insert a user to RESTful API using POST HTTP method.
-            webClient.UploadString($"{baseUrl}/users", "POST", rawText);
+            string rawText = JsonSerializer.Serialize(user);
+            //Send updated user to RESTful API using PUT HTTP method.
+            webClient.UploadString($"{baseUrl}/users/{user.id}", "PUT", rawText);
         }
         public void Delete(User user)
         {
